@@ -11,6 +11,11 @@ let next = document.getElementById('siguiente-pieza');
 let pause = document.getElementById('pause');
 let mejor = document.getElementById('mejorPuntaje');
 let mensaje = document.getElementById('mensajeEmergente');
+let gameSize = document.getElementById('gameArea');
+
+console.log(gameSize.clientWidth);
+console.log(gameSize.clientHeight);
+console.log(gameSize);
 
 
 let bucle;
@@ -26,13 +31,14 @@ let jugador = {
 		mejor.innerHTML = ''+jugador.best;
 	}
 }
-
+let ancho = gameSize.clientWidth*0.75;
+let alto = gameSize.clientHeight;
 let datos = {
 	puntos: 0,
-	altoCanvas : 570,
-	anchoCanvas: 300,
-	anchoFicha: 30,
-	altoFicha: 30,
+	altoCanvas : ancho*1.9,
+	anchoCanvas: ancho,
+	anchoFicha: ancho/10,
+	altoFicha: ((ancho*1.9)/19),
 	fotograma: 0,
 	velocidad: 2,
 	margenSuperior: 4,
@@ -40,6 +46,7 @@ let datos = {
 	altoTablero: 20,
 	pause: false
 }
+console.log(datos);
 
 let colores = ['#39ff14','#c600eb', '#ffff05', '#05ffa6', '#bc13fe', '#fe0002', '#fe019a'];
 
@@ -362,7 +369,7 @@ let juego = {
 						default:
 
 					}
-						ctx.fillRect((px)*30,(py-datos.margenSuperior-1)*30,28,28);
+						ctx.fillRect((px)*datos.anchoFicha,(py-datos.margenSuperior-1)*datos.altoFicha,datos.anchoFicha-2,datos.altoFicha-2);
 				}
 			}
 		}
@@ -376,3 +383,4 @@ let juego = {
 canvas.addEventListener('click',()=>{(datos.pause) ? juego.empieza() : juego.parar()});
 juego.empieza();
 pause.addEventListener('click',()=>{(datos.pause) ? juego.empieza() : juego.parar()});
+console.log(canvas);
