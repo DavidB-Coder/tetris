@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/main.css">
+  <title>Tetris Mobile</title>
+</head>
+<body>
+  <div id="container">
+    <div id="stateBar">
+      <div id="next">
+        <img id="siguiente-pieza" src="img/ficha0.png" alt="">
+        <p>Next</p>
+      </div>
+      <p><span id="puntaje">0</span>  Score</p>
+      <p><span id="mejorPuntaje">0</span>  Max Score</p>
+    </div>
+    <div id="gameArea">
+      <canvas id="canvas" width="400" height="720"></canvas>
+    </div>
+    <div id="controles">
+      <button id="pause" type="button" name="button">Pause</button>
+      <div id="mensajeEmergente">
+        <h2><a href="https://juegos.davidbocanegra.repl.co/">Más Juegos</a></h2>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p>&copy David Bocanegra 2021</p>
+  </footer>
+
+  <script src="js/fichas.js"></script>
+  <script src="js/codigo.js"></script>
+</body>
+</html>
