@@ -13,29 +13,24 @@ let mejor = document.getElementById('mejorPuntaje');
 let mensaje = document.getElementById('mensajeEmergente');
 let gameSize = document.getElementById('gameArea');
 
-console.log(gameSize.clientWidth);
-console.log(gameSize.clientHeight);
-console.log(gameSize);
-
-
 let bucle;
 
 let jugador = {
 	nombre: 'David',
 	best: 0,
 	newBest: (newScore)=>{
-		console.log(newScore);
 		if (newScore>=jugador.best) {
 			jugador.best = newScore;
 		}
+		datos.guardarPuntos();
 		mejor.innerHTML = ''+jugador.best;
 	}
 }
-let ancho = gameSize.clientWidth*0.75;
-let alto = gameSize.clientHeight;
+let alto = screen.availHeight*0.75;
+let ancho = alto/1.9;
 let datos = {
 	puntos: 0,
-	altoCanvas : ancho*1.9,
+	altoCanvas : alto,
 	anchoCanvas: ancho,
 	anchoFicha: ancho/10,
 	altoFicha: ((ancho*1.9)/19),
@@ -44,9 +39,14 @@ let datos = {
 	margenSuperior: 4,
 	anchoTablero: 10,
 	altoTablero: 20,
-	pause: false
+	pause: false,
+	guardarPuntos: ()=>{
+		localStorage.setItem('maxPuntos', jugador.best); 
+	},
+	cargarPuntos: ()=>{
+		jugador.best = parseInt(localStorage.getItem('maxPuntos'));
+	}
 }
-console.log(datos);
 
 let colores = ['#39ff14','#c600eb', '#ffff05', '#05ffa6', '#bc13fe', '#fe0002', '#fe019a'];
 
@@ -321,7 +321,7 @@ let juego = {
 	},
 	presionado: (e)=>{
 		if (!datos.pause){
-			if (e.clientY<=e.target.clientHeight*(2/3)) {
+			if (e.clientY<=e.target.clientHeight*(7/9)) {
 				if (e.clientX<e.target.clientWidth*1/3) {
 					ficha.izquierda();
 				}else if (e.clientX<e.target.clientWidth*2/3) {
@@ -331,7 +331,7 @@ let juego = {
 					ficha.derecha();
 				}
 			}
-			else if (e.clientY>(e.target.clientHeight*(2/3))) {
+			else if (e.clientY>(e.target.clientHeight*(7/9))) {
 				ficha.bajar();
 			}
 		}
@@ -383,4 +383,7 @@ let juego = {
 canvas.addEventListener('click',()=>{(datos.pause) ? juego.empieza() : juego.parar()});
 juego.empieza();
 pause.addEventListener('click',()=>{(datos.pause) ? juego.empieza() : juego.parar()});
-console.log(canvas);
+if (localStorage.getItem('maxPuntos')) {
+	datos.cargarPuntos();
+	mejor.innerHTML = ''+jugador.best;
+}
