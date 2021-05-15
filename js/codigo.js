@@ -13,11 +13,6 @@ let mejor = document.getElementById('mejorPuntaje');
 let mensaje = document.getElementById('mensajeEmergente');
 let gameSize = document.getElementById('gameArea');
 
-console.log(gameSize.clientWidth);
-console.log(gameSize.clientHeight);
-console.log(gameSize);
-
-
 let bucle;
 
 let jugador = {
@@ -383,4 +378,3 @@ let juego = {
 canvas.addEventListener('click',()=>{(datos.pause) ? juego.empieza() : juego.parar()});
 juego.empieza();
 pause.addEventListener('click',()=>{(datos.pause) ? juego.empieza() : juego.parar()});
-console.log(canvas);
