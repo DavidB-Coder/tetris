@@ -109,9 +109,11 @@ class Ficha {
       if (filaLlena) {
         this.bajaElementos(py);
         datos.puntos += 100*multiplicador;
-        multiplicador++;
-        datos.velocidad++;
+        multiplicador++;        
         puntaje.innerHTML = ''+datos.puntos;
+        if (datos.velocidad<=40) {
+          datos.velocidad++;
+        }
       }
     }
   }

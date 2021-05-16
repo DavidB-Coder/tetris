@@ -26,7 +26,8 @@ let jugador = {
 		mejor.innerHTML = ''+jugador.best;
 	}
 }
-let alto = screen.availHeight*0.75;
+let amplitud = 0.65;
+let alto = screen.availHeight*amplitud;
 let ancho = alto/1.9;
 let datos = {
 	puntos: 0,
@@ -35,7 +36,7 @@ let datos = {
 	anchoFicha: ancho/10,
 	altoFicha: ((ancho*1.9)/19),
 	fotograma: 0,
-	velocidad: 2,
+	velocidad: 0,
 	margenSuperior: 4,
 	anchoTablero: 10,
 	altoTablero: 20,
@@ -44,7 +45,25 @@ let datos = {
 		localStorage.setItem('maxPuntos', jugador.best); 
 	},
 	cargarPuntos: ()=>{
-		jugador.best = parseInt(localStorage.getItem('maxPuntos'));
+		jugador.best = parseInt(localStorage.getItem('maxPuntos'));		
+	},
+	actualizarDimensiones: ()=>{		
+		alto = screen.availHeight*amplitud;
+		ancho = alto/1.9;
+		datos.altoCanvas = alto;
+		datos.anchoCanvas = ancho;
+		datos.anchoFicha = ancho/10;
+		datos.altoFicha = ((ancho*1.9)/19);		
+	},
+	aumentarTam: ()=>{		
+		amplitud+=0.05;
+		datos.actualizarDimensiones();
+		juego.canvas();
+	},
+	disminuirTam: ()=>{		
+		amplitud-=0.05;
+		datos.actualizarDimensiones();
+		juego.canvas();
 	}
 }
 
@@ -307,7 +326,8 @@ let juego = {
 		pause.innerHTML = 'Play';
 		pause.style.background = 'green';
 		controles.style.background = 'rgba(255,255,255,0.4)';
-		mensaje.style.display = 'block';
+		mensaje.style.display = 'block';	
+		size.style.display = 'block';
 	},
 	empieza: ()=>{
 		datos.pause = false;
@@ -317,7 +337,8 @@ let juego = {
 		pause.innerHTML = 'Pause';
 		pause.style.background = 'red';
 		controles.style.background = 'rgba(255,255,255,0.0)';
-		mensaje.style.display = 'none';
+		mensaje.style.display = 'none';		
+		size.style.display = 'none';
 	},
 	presionado: (e)=>{
 		if (!datos.pause){
@@ -380,9 +401,12 @@ let juego = {
 	}
 
 };
+let size = document.getElementById('oculto');
 canvas.addEventListener('click',()=>{(datos.pause) ? juego.empieza() : juego.parar()});
 juego.empieza();
 pause.addEventListener('click',()=>{(datos.pause) ? juego.empieza() : juego.parar()});
+document.getElementById('aumentar').addEventListener('click',datos.aumentarTam);
+document.getElementById('disminuir').addEventListener('click',datos.disminuirTam);
 if (localStorage.getItem('maxPuntos')) {
 	datos.cargarPuntos();
 	mejor.innerHTML = ''+jugador.best;

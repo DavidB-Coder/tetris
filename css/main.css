@@ -83,3 +83,15 @@ footer{
   left: 35%;
   display: none;
 }
+#oculto{
+  display: none;
+  color: white;
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  text-align: center;
+  font-size: large;
+}
+#oculto button{
+  width: 50%;
+}
